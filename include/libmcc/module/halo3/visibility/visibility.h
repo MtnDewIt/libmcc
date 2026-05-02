@@ -18,7 +18,7 @@ namespace libmcc::halo3  {
 
     struct c_visible_items {
         static s_visible_items* m_item() {
-            return REF<s_visible_items>(s_data_offset_table::c_visible_items_m_item);
+            return MODULE_GLOBAL(s_visible_items, hModule, s_data_offset_table::c_visible_items_m_item);
         };
     };
 }

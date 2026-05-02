@@ -33,7 +33,10 @@ namespace libmcc::halo3 {
     };
 
     inline c_typed_allocation_data_no_destruct_c_cache_file_tag_resource_runtime_manager_1* g_resource_runtime_manager() {
-        return REF<c_typed_allocation_data_no_destruct_c_cache_file_tag_resource_runtime_manager_1>(s_data_offset_table::g_resource_runtime_manager);
+        return MODULE_GLOBAL(
+            c_typed_allocation_data_no_destruct_c_cache_file_tag_resource_runtime_manager_1,
+            hModule,
+            s_data_offset_table::g_resource_runtime_manager);
     }
 
     template <typename T>

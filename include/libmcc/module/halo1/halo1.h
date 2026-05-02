@@ -76,15 +76,21 @@ namespace libmcc::halo1 {
 
     struct dsSTATE_MGR {
         void SetState(int id, const dsDATA* data) {
-			return INVOKE<void>(s_function_offset_table::dsSTATE_MGR__SetState, this, id, data);
+            using t_set_state = void(__fastcall*)(dsSTATE_MGR*, int, const dsDATA*);
+            const auto function = MODULE_FUNCTION(t_set_state, hModule, s_function_offset_table::dsSTATE_MGR__SetState);
+			return function(this, id, data);
         }
 
 		int RegisterState(const char* id, bool isToggleEventOnChange) {
-			return INVOKE<int>(s_function_offset_table::dsSTATE_MGR__RegisterState, this, id, isToggleEventOnChange);
+            using t_register_state = int(__fastcall*)(dsSTATE_MGR*, const char*, bool);
+            const auto function = MODULE_FUNCTION(t_register_state, hModule, s_function_offset_table::dsSTATE_MGR__RegisterState);
+			return function(this, id, isToggleEventOnChange);
 		}
 
 		const dsDATA* GetState(int id) {
-			return INVOKE<const dsDATA*>(s_function_offset_table::dsSTATE_MGR__GetState, this, id);
+            using t_get_state = const dsDATA* (__fastcall*)(dsSTATE_MGR*, int);
+            const auto function = MODULE_FUNCTION(t_get_state, hModule, s_function_offset_table::dsSTATE_MGR__GetState);
+			return function(this, id);
 		}
     };
 }

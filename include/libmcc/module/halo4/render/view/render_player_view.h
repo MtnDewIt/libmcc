@@ -13,7 +13,7 @@ namespace libmcc::halo4 {
 
     class c_splitscreen_config {
         std::array<std::array<s_splitscreen_view_config, 4>, 5>* m_config_table() {
-            return REF<std::array<std::array<s_splitscreen_view_config, 4>, 5>>(s_data_offset_table::c_splitscreen_config__m_config_table);
+            return MODULE_GLOBAL(std::array<std::array<s_splitscreen_view_config, 4>, 5>, hModule, s_data_offset_table::c_splitscreen_config__m_config_table);
         }
     };
 

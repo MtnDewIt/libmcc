@@ -20,6 +20,6 @@ namespace libmcc::mcc {
 	static_assert(sizeof(c_game_manager) == 0xB788);
 
 	inline c_game_manager* g_game_manager() {
-		return REF<c_game_manager>(s_data_offset_table::game_manager);
+		return MODULE_GLOBAL(c_game_manager, get_module_base_address(), s_data_offset_table::game_manager);
 	}
 }

@@ -9,6 +9,6 @@ namespace libmcc::mcc {
     };
 
     inline i_game_engine** g_game_engine() {
-        return REF<i_game_engine*>(s_data_offset_table::p_game_engine);
+        return MODULE_GLOBAL(i_game_engine*, get_module_base_address(), s_data_offset_table::p_game_engine);
     }
 }

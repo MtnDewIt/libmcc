@@ -7,7 +7,7 @@
 namespace libmcc::mcc {
     struct s_game_globals : libmcc::s_game_globals {
         static s_game_globals_states* game_globals_states() {
-            return REF<s_game_globals_states>(s_data_offset_table::game_globals_states);
+            return MODULE_GLOBAL(s_game_globals_states, get_module_base_address(), s_data_offset_table::game_globals_states);
         }
 
         int* state() {
@@ -40,6 +40,6 @@ namespace libmcc::mcc {
     static_assert(sizeof(s_game_globals) == 0x2C0E8);
 
     inline s_game_globals** g_game_globals() {
-        return REF<s_game_globals*>(s_data_offset_table::p_game_globals);
+        return MODULE_GLOBAL(s_game_globals*, get_module_base_address(), s_data_offset_table::p_game_globals);
     }
 }

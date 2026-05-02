@@ -15,11 +15,11 @@ namespace libmcc::halo3 {
     };
 
     inline int* g_current_cull_mode() {
-        return REF<int>(s_data_offset_table::g_current_cull_mode);
+        return MODULE_GLOBAL(int, hModule, s_data_offset_table::g_current_cull_mode);
     }
 
     inline int* g_cull_mode_changed() {
-        return REF<int>(s_data_offset_table::g_cull_mode_changed);
+        return MODULE_GLOBAL(int, hModule, s_data_offset_table::g_cull_mode_changed);
     }
 
     struct c_rasterizer {
@@ -50,13 +50,14 @@ namespace libmcc::halo3 {
             e_entry_point entry_point,
             void **shader)
         {
-            return INVOKE<bool>(
-                s_function_offset_table::c_rasterizer_set_explicit_shaders,
-                explicit_shader, 
-                base_vertex_type,
-                transfer_vertex_type, 
-                entry_point, 
-                shader);
+            using t_set_explicit_shaders = bool(__fastcall*)(
+                c_rasterizer_globals::e_explicit_shader,
+                e_vertex_type,
+                e_transfer_vector_vertex_types,
+                e_entry_point,
+                void**);
+            const auto function = MODULE_FUNCTION(t_set_explicit_shaders, hModule, s_function_offset_table::c_rasterizer_set_explicit_shaders);
+            return function(explicit_shader, base_vertex_type, transfer_vertex_type, entry_point, shader);
         }
 
         static void set_pixel_shader_constant(
@@ -64,11 +65,9 @@ namespace libmcc::halo3 {
             int vector4f_count, 
             real_vector4d *constant_data) 
         {
-            INVOKE<void>(
-                s_function_offset_table::c_rasterizer_set_pixel_shader_constant,
-                start_register, 
-                vector4f_count, 
-                constant_data);
+            using t_set_pixel_shader_constant = void(__fastcall*)(int, int, real_vector4d*);
+            const auto function = MODULE_FUNCTION(t_set_pixel_shader_constant, hModule, s_function_offset_table::c_rasterizer_set_pixel_shader_constant);
+            function(start_register, vector4f_count, constant_data);
         }
 
         static void set_cull_mode(e_cull_mode cull_mode) {
@@ -83,12 +82,16 @@ namespace libmcc::halo3 {
         }
 
         static void set_z_buffer_mode(e_z_buffer_mode z_buffer_mode) {
-            INVOKE<void>(s_function_offset_table::c_rasterizer_set_z_buffer_mode, z_buffer_mode);
+            using t_set_z_buffer_mode = void(__fastcall*)(e_z_buffer_mode);
+            const auto function = MODULE_FUNCTION(t_set_z_buffer_mode, hModule, s_function_offset_table::c_rasterizer_set_z_buffer_mode);
+            function(z_buffer_mode);
         }
 
         static void draw_primitive_up(c_rasterizer_index_buffer::e_primitive_type type, UINT primitive_count,
                                       const void *stream_data, UINT stride) {
-            INVOKE<void>(s_function_offset_table::c_rasterizer_draw_primitive_up, type, primitive_count, stream_data, stride);
+            using t_draw_primitive_up = void(__fastcall*)(c_rasterizer_index_buffer::e_primitive_type, UINT, const void*, UINT);
+            const auto function = MODULE_FUNCTION(t_draw_primitive_up, hModule, s_function_offset_table::c_rasterizer_draw_primitive_up);
+            function(type, primitive_count, stream_data, stride);
         }
 
         static void set_indices(int) {

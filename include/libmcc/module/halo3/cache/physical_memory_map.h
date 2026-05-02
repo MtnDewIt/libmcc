@@ -35,6 +35,6 @@ namespace libmcc::halo3 {
     static_assert(sizeof(s_physical_memory_globals) == 296);
 
     inline s_physical_memory_globals* physical_memory_globals() {
-        return REF<s_physical_memory_globals>(s_data_offset_table::physical_memory_globals);
+        return MODULE_GLOBAL(s_physical_memory_globals, hModule, s_data_offset_table::physical_memory_globals);
     }
 }
