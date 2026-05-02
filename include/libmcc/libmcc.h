@@ -15,4 +15,3 @@
 #include "./module/halo3odst/halo3odst.h"
 #include "./module/haloreach/haloreach.h"
 #include "./module/mcc/mcc.h"
-#include "./module/mccwinstore/mccwinstore.h"

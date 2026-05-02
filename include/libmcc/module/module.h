@@ -12,7 +12,6 @@
 #define HALO3ODST_MODULE_NAME "halo3odst.dll"
 #define HALO4_MODULE_NAME "halo4.dll"
 #define MCC_MODULE_NAME "MCC-Win64-Shipping.exe"
-#define MCCWINSTORE_MODULE_NAME "MCCWinStore-Win64-Shipping.exe"
 
 #define EXPORT_FUNCTION_CREATE_DATA_ACCESS "CreateDataAccess"
 #define EXPORT_FUNCTION_CREATE_GAME_ENGINE "CreateGameEngine"
@@ -28,7 +27,6 @@ namespace libmcc {
 		_module_halo3odst,
 		_module_haloreach,
 		_module_mcc,
-		_module_mccwinstore,
 		_module_network_session_layer = -2,
 
 		k_game_count = 7,
