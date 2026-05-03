@@ -8,23 +8,11 @@
 #include <cstdint>
 
 namespace libmcc {
-	struct c_synchronized_long {
-		volatile unsigned long m_value;
-	};
-
-	struct c_synchronized_int64 {
-		volatile unsigned long long m_value;
-	};
-
 	typedef int string_id;
 
 	typedef unsigned int datum_index;
 
 	typedef uint64_t network_id;
-
-	typedef int s_big_endian_int;
-
-	typedef int s_little_endian_int;
 
 	union module_address {
 		std::uintptr_t address;
@@ -33,12 +21,11 @@ namespace libmcc {
 	};
 
 	struct s_offset_table_item {
-		constexpr s_offset_table_item(std::uintptr_t address, const char* pattern)
-			: address(address), pattern(pattern) {
+		constexpr s_offset_table_item(std::uintptr_t address)
+			: address(address) {
 		}
 
 		std::uintptr_t address;
-		const char* pattern;
 	};
 
 	inline constexpr std::uintptr_t k_default_image_base = 0x140000000ull;
@@ -119,15 +106,15 @@ namespace libmcc {
 
 #define byte_swap(x) _byteswap_ulong(x)
 
-#define OFFSET_DECLARE(name, offset, aob) constexpr static const s_offset_table_item name = s_offset_table_item(offset, aob)
-#define FUNCTION_OFFSET_DECLARE(name, offset, aob) OFFSET_DECLARE(name, offset, aob)
-#define DATA_OFFSET_DECLARE(name, offset, aob) OFFSET_DECLARE(name, offset, aob)
+#define OFFSET_DECLARE(name, offset) constexpr static const s_offset_table_item name = s_offset_table_item(offset)
+#define FUNCTION_OFFSET_DECLARE(name, offset) OFFSET_DECLARE(name, offset)
+#define DATA_OFFSET_DECLARE(name, offset) OFFSET_DECLARE(name, offset)
 
 #define MODULE_TLS(type, module) libmcc::TLS<type>(module)
 #define MODULE_FUNCTION(type, module, func) libmcc::FUNCTION<type>(module, func)
 #define MODULE_GLOBAL(type, module, data) libmcc::GLOBAL<type>(module, data)
 
-#define MAKE_OFFSET_TABLE_ITEM(name, offset, aob) OFFSET_DECLARE(name, offset, aob)
+#define MAKE_OFFSET_TABLE_ITEM(name, offset) OFFSET_DECLARE(name, offset)
 
 #define DEF_PVF(ret, name, ...) virtual ret __fastcall name(__VA_ARGS__) = 0
 
